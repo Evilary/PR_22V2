@@ -1,0 +1,21 @@
+﻿@using Shop_Chernyshkov_Final.Data.Models
+@model IEnumerable<Items>
+
+@{
+	Layout = "_Layout";
+}
+
+<h2>Все предметы:</h2>
+
+@{
+	foreach (Items item in Model)
+	{
+		<div>
+			<h3>Модель: @item.Name</h3>
+			<p>Цена: @item.Price.ToString("c")</p>
+			<p>Категория: @item.Categorys.Name</p>
+
+
+		</div>
+	}
+}
