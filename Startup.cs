@@ -15,7 +15,7 @@ namespace Shop_Chernyshkov_Final
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            Configuration = configuration;אûגא
         }
 
         public IConfiguration Configuration { get; }
