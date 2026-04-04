@@ -2,7 +2,7 @@
 
 namespace Shop_Chernyshkov_Final.Data.Models
 {
-    public class Categoriescs
+    public class Categorys
     {
         public int Id { get; set; }
         public string Name { get; set; }

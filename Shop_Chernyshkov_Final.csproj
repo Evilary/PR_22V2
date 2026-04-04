@@ -8,8 +8,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="Data\Interfaces\" />
-    <Folder Include="Data\Mocks\" />
     <Folder Include="Views\" />
   </ItemGroup>
 </Project>
