@@ -10,6 +10,10 @@ namespace Shop_Chernyshkov_Final.Data.Interfaces
         public IEnumerable<Items> AllItems { get; }
 
         public int Add(Items item);
+        void UpdateItem(Items item);
+
+        Items GetItemById(int id);
+        void Delete(int id);
     }
     
 }

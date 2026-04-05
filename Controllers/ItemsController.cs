@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -62,6 +63,52 @@ namespace Shop_Chernyshkov_Final.Controllers
             int id = IAllItems.Add(newItems);
             return Redirect("/Items/Update?id=" + id);
 
+        }
+
+        [HttpGet]
+        public ViewResult Update(int id)
+        {
+            Items item = IAllItems.GetItemById(id);
+            ViewBag.Item = item;
+            IEnumerable<Categorys> categorys = IAllCategorys.AllCategorys;
+            return View(categorys);
+        }
+
+        [HttpPost]
+        public RedirectResult Update(int id, string name, string description, IFormFile files, float price, int idCategory)
+        {
+            
+            Items oldItem = IAllItems.GetItemById(id);
+            if (oldItem == null) return Redirect("/Items/List");
+
+            string fileName = oldItem.Img; 
+
+            if (files != null)
+            {
+                var uploads = Path.Combine(hostingEnvironment.WebRootPath, "img");
+                var filePath = Path.Combine(uploads, files.FileName);
+                files.CopyTo(new FileStream(filePath, FileMode.Create));
+                fileName = files.FileName;
+            }
+
+            Items updatedItem = new Items();
+            updatedItem.Id = id;
+            updatedItem.Name = name;
+            updatedItem.Description = description;
+            updatedItem.Img = fileName;
+            updatedItem.Price = Convert.ToInt32(price);
+            updatedItem.Category = new Categorys() { Id = idCategory };
+
+            IAllItems.UpdateItem(updatedItem);
+
+            return Redirect("/Items/List?id=" + idCategory);
+        }
+
+        [HttpGet]
+        public RedirectResult Delete(int id, int categoryId = 0)
+        {
+            IAllItems.Delete(id);
+            return Redirect("/Items/List?id=" + categoryId);
         }
     }
 }

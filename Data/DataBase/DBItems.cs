@@ -42,37 +42,13 @@ namespace Shop_Chernyshkov_Final.Data.DataBase
         {
             MySqlConnection connection = Connection.OpenConnection();
 
-            Connection.GetQuery($"INSERT INTO " + "$`Items`(" +
-                                        "$`Name`, " +
-                                        "$`Description`, " +
-                                        "$`Img`, " +
-                                        "$`Price`, " +
-                                        "$`IdCategory`) " +
-                                        "$VALUES (" +
-                                        "$`{item.Name}`, " +
-                                        "$`{item.Description}`, " +
-                                        "$`{item.Img}`, " +
-                                        "$`{item.Price}`, " +
-                                        "$`{item.Category.Id}`);", connection);
+            Connection.GetQuery($"INSERT INTO `Items` (`Name`, `Description`, `Img`, `Price`, `IdCategory`) VALUES ('{item.Name}', '{item.Description}', '{item.Img}', {item.Price}, {item.Category.Id});", connection);
 
             Connection.CloseConnection(connection);
 
             int idItem = -1;
             connection = Connection.OpenConnection();
-            MySqlDataReader dbItem = Connection.GetQuery($"SELECT " +
-                "$'Id'" +
-                "$FROM " +
-            
-                "$'Items'" +
-                "$WHERE " +
-            
-                "$'Name' = '{$item.Name}' AND " +
-            
-                "$'Description' = '{$item.Description}' AND " +
-            
-                "$'Price' = {item.Price} AND " +
-            
-                "$'IdCategory' = {item.Category.Id}", connection);
+            MySqlDataReader dbItem = Connection.GetQuery($"SELECT `Id` FROM `Items` WHERE `Name` = '{item.Name}' AND `Description` = '{item.Description}' AND `Price` = {item.Price} AND `IdCategory` = {item.Category.Id}", connection);
 
             if (dbItem.HasRows)
             {
@@ -82,7 +58,41 @@ namespace Shop_Chernyshkov_Final.Data.DataBase
 
             Connection.CloseConnection(connection);
             return idItem;
+        }
 
+        public Items GetItemById(int id)
+        {
+            Items item = null;
+            MySqlConnection connection = Connection.OpenConnection();
+            MySqlDataReader reader = Connection.GetQuery("SELECT * FROM `Items` WHERE `Id` = " + id, connection);
+            if (reader.Read())
+            {
+                item = new Items()
+                {
+                    Id = reader.GetInt32(0),
+                    Name = reader.GetString(1),
+                    Description = reader.GetString(2),
+                    Img = reader.GetString(3),
+                    Price = reader.GetInt32(4),
+                    Category = new Categorys() { Id = reader.GetInt32(5) }
+                };
+            }
+            Connection.CloseConnection(connection);
+            return item;
+        }
+
+        public void UpdateItem(Items item)
+        {
+            MySqlConnection connection = Connection.OpenConnection();
+            Connection.GetQuery("UPDATE `Items` SET `Name` = '" + item.Name + "', `Description` = '" + item.Description + "', `Img` = '" + item.Img + "', `Price` = " + item.Price + ", `IdCategory` = " + item.Category.Id + " WHERE `Id` = " + item.Id, connection);
+            Connection.CloseConnection(connection);
+        }
+
+        public void Delete(int id)
+        {
+            MySqlConnection connection = Connection.OpenConnection();
+            Connection.GetQuery("DELETE FROM `Items` WHERE `Id` = " + id, connection);
+            Connection.CloseConnection(connection);
         }
     }
 }

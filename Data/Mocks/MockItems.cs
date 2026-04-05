@@ -42,5 +42,19 @@ namespace Shop_Chernyshkov_Final.Data.Mocks
         {
             throw new System.NotImplementedException();
         }
+
+        public Items GetItemById(int id)
+        {
+            return AllItems.FirstOrDefault(i => i.Id == id);
+        }
+
+        public void UpdateItem(Items item)
+        {
+            throw new System.NotImplementedException();
+        }
+        public void Delete(int id)
+        {
+            
+        }
     }
 }

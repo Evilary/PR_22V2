@@ -1,0 +1,43 @@
+﻿@using Shop_Chernyshkov_Final.Data.Models
+@model IEnumerable<Categorys>
+@{
+    Layout = "_Layout";
+    Items item = ViewBag.Item as Items;
+}
+
+<form method="post" enctype="multipart/form-data">
+    <div>
+        Наименование:
+        <br /> <input name="name" placeholder="Наименование:" value="@(item?.Name)" />
+    </div>
+    <div>
+        Описание:
+        <br /> <input name="description" placeholder="Описание:" value="@(item?.Description)" />
+    </div>
+    <div>
+        <label for="file">Изображение</label>
+        <br /> <input name="files" type="file" />
+        <br /> <small>Текущее: @(item?.Img)</small>
+    </div>
+    <div>
+        Стоимость:
+        <br /> <input name="price" value="@(item?.Price)" />
+    </div>
+    <div>
+        Категория:
+        <br /> <select name="idCategory">
+            @foreach (var Category in Model)
+            {
+                if (item != null && Category.Id == item.Category.Id)
+                {
+                    <option selected="selected" value="@Category.Id">@Category.Name</option>
+                }
+                else
+                {
+                    <option value="@Category.Id">@Category.Name</option>
+                }
+            }
+        </select>
+    </div>
+    <input type="submit" value="Сохранить" />
+</form>
