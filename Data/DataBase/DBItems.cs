@@ -18,7 +18,7 @@ namespace Shop_Chernyshkov_Final.Data.DataBase
 
                 MySqlConnection connection = Connection.OpenConnection();
 
-                MySqlDataReader dbItems = Connection.GetQuery("SELECT * FROM 'Items' ORDER BY 'Name'", connection);
+                MySqlDataReader dbItems = Connection.GetQuery("SELECT * FROM Items ORDER BY Name", connection);
                 while (dbItems.Read())
                 {
                     allItems.Add(new Items()

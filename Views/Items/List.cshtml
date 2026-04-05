@@ -1,27 +1,46 @@
-﻿@using Shop_Chernyshkov_Final.Data.Models
-@model IEnumerable<Items>
+﻿@using Shop_Chernyshkov_Final.Data.ViewModell
+@model VMItems
 
 @{
-	Layout = "_Layout";
+    Layout = "_Layout";
 }
 
-<h2>Все предметы:</h2>
+<div>
+    <select onChange="SelectCategory(this)">
+        <option value="0">Выбрать ...</option>
+        @foreach (var Category in Model.Category)
+        {
+            if (Category.Id == Model.SelectCategory)
+            {
+                <option selected="selected" value="@Category.Id">@Category.Name</option>
+            }
+            else
+            {
+                <option value="@Category.Id">@Category.Name</option>
+            }
+        }
+    </select>
+    <script>
+        function SelectCategory(sender) {
+        window.location = "/Items/List?id=" + sender.value;
+        }
+    </script>
+</div>
 
-@{
-	foreach (Items item in Model)
-	{
-		<div class="item">
-			<img src="@item.Img" />
-			<div class="data">
+<h2>Все предметы</h2>
 
-				<h3>Модель: @item.Name</h3>
-				<p>Цена: @item.Price.ToString("c")</p>
-				<p>Категория: @item.Categorys.Name</p>
-			
-			</div>
-			
-
-
-		</div>
-	}
+@foreach (var item in Model.Items)
+{
+    if (item.Category.Id == Model.SelectCategory)
+    {
+        <div class="item">
+            <img src="@item.Img" />
+            <div class="data">
+                <h3>Модель: @item.Name</h3>
+                <div>Цена: @item.Price.ToString("c")</div>
+                <div>Категория @item.Category.Name</div>
+                <div>Описание: @item.Description</div>
+            </div>
+        </div>
+    }
 }

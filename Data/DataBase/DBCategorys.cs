@@ -15,7 +15,7 @@ namespace Shop_Chernyshkov_Final.Data.DataBase
 
                 MySqlConnection connection = Connection.OpenConnection();
 
-                MySqlDataReader dbCategorys = Connection.GetQuery("SELECT * FROM 'Categorys' ORDER BY 'Name'", connection);
+                MySqlDataReader dbCategorys = Connection.GetQuery("SELECT * FROM Categorys ORDER BY Name", connection);
 
                 while (dbCategorys.Read())
                 {
