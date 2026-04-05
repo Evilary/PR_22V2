@@ -111,9 +111,13 @@ namespace Shop_Chernyshkov_Final.Controllers
             return Redirect("/Items/List?id=" + categoryId);
         }
 
-        public ActionResult Basket(int idItem)
+        public ActionResult Basket(int idItem = -1)
         {
-            return Json(true);
+            if (idItem != -1) 
+            {
+                Startup.ItemsBaskets.Add(new ItemsBasket(1, IAllItems.AllItems.First(x => x.Id == idItem)));
+            }
+            return Json(Startup.ItemsBaskets);
         }
     }
 

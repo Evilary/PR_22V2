@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -5,11 +6,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Shop_Chernyshkov_Final.Data.DataBase;
 using Shop_Chernyshkov_Final.Data.Interfaces;
 using Shop_Chernyshkov_Final.Data.Mocks;
+using Shop_Chernyshkov_Final.Data.Models;
 
 namespace Shop_Chernyshkov_Final
 {
     public class Startup
     {
+        public static List<ItemsBasket> ItemsBaskets = new List<ItemsBasket>();
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
