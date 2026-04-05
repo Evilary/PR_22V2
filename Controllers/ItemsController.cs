@@ -119,6 +119,20 @@ namespace Shop_Chernyshkov_Final.Controllers
             }
             return Json(Startup.ItemsBaskets);
         }
+
+        public ActionResult BasketCount(int idItem = -1, int count = -1)
+        {
+            if (idItem != -1)
+            {
+                if (count == 0)
+                {
+                    Startup.ItemsBaskets.Remove(Startup.ItemsBaskets.Find(x => x.Id == idItem));
+
+                }
+                else Startup.ItemsBaskets.Find(x => x.Id == idItem).Count = count;
+            }
+            return Json(Startup.ItemsBaskets);
+        }
     }
 
 
