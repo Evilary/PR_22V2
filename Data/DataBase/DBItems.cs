@@ -37,6 +37,52 @@ namespace Shop_Chernyshkov_Final.Data.DataBase
                 return allItems;
             }
         }
-        
+
+        public int Add(Items item)
+        {
+            MySqlConnection connection = Connection.OpenConnection();
+
+            Connection.GetQuery($"INSERT INTO " + "$`Items`(" +
+                                        "$`Name`, " +
+                                        "$`Description`, " +
+                                        "$`Img`, " +
+                                        "$`Price`, " +
+                                        "$`IdCategory`) " +
+                                        "$VALUES (" +
+                                        "$`{item.Name}`, " +
+                                        "$`{item.Description}`, " +
+                                        "$`{item.Img}`, " +
+                                        "$`{item.Price}`, " +
+                                        "$`{item.Category.Id}`);", connection);
+
+            Connection.CloseConnection(connection);
+
+            int idItem = -1;
+            connection = Connection.OpenConnection();
+            MySqlDataReader dbItem = Connection.GetQuery($"SELECT " +
+                "$'Id'" +
+                "$FROM " +
+            
+                "$'Items'" +
+                "$WHERE " +
+            
+                "$'Name' = '{$item.Name}' AND " +
+            
+                "$'Description' = '{$item.Description}' AND " +
+            
+                "$'Price' = {item.Price} AND " +
+            
+                "$'IdCategory' = {item.Category.Id}", connection);
+
+            if (dbItem.HasRows)
+            {
+                dbItem.Read();
+                idItem = dbItem.GetInt32(0);
+            }
+
+            Connection.CloseConnection(connection);
+            return idItem;
+
+        }
     }
 }

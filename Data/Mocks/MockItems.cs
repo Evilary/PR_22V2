@@ -37,5 +37,10 @@ namespace Shop_Chernyshkov_Final.Data.Mocks
                 };
             }
         }
+
+        public int Add(Items item)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
