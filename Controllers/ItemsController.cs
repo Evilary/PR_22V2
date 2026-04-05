@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 using Shop_Chernyshkov_Final.Data.Interfaces;
+using Shop_Chernyshkov_Final.Data.Models;
 using Shop_Chernyshkov_Final.Data.ViewModell;
 
 namespace Shop_Chernyshkov_Final.Controllers
@@ -25,6 +28,12 @@ namespace Shop_Chernyshkov_Final.Controllers
             VMItems.SelectCategory = id;
 
             return View(VMItems);
+        }
+        [HttpGet]
+        public ViewResult Add()
+        {
+            IEnumerable<Categorys> categorys = IAllCategorys.AllCategorys;
+            return View(categorys);
         }
     }
 }
