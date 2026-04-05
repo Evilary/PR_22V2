@@ -16,7 +16,7 @@ namespace Shop_Chernyshkov_Final.Data.Mocks
                     {
                         Id = 1,
                         Name = "Ноутбуки",
-                        Description = "Описание"
+                        Description = "Красочное Описание"
                     },
                     new Categorys()
                     {
