@@ -42,6 +42,15 @@
                 }
             }
             <img src="@(item.Img != null && item.Img.StartsWith("http") ? item.Img : Url.Content("~/img/" + item.Img))" />
+            <div class="basket">
+                <div class="button"></div>
+                <div class="count">
+                    <div class="button min">-</div>
+                    <div class="text">-</div>
+                    <div class="button max"></div>
+                </div>
+                
+            </div>
             <div class="data">
                 <h3>Модель: @item.Name</h3>
                 <div>Цена: @item.Price.ToString("c")</div>
