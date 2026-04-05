@@ -43,11 +43,11 @@
             }
             <img src="@(item.Img != null && item.Img.StartsWith("http") ? item.Img : Url.Content("~/img/" + item.Img))" />
             <div class="basket">
-                <div class="button">В корзину</div>
+                <div class="button" data-id="@item.Id">В корзину</div>
                 <div class="count">
                     <div class="button min">-</div>
-                    <div class="text">-</div>
-                    <div class="button max"></div>
+                    <div class="text">1</div>
+                    <div class="button max">+</div>
                 </div>
                 
             </div>
@@ -64,3 +64,23 @@
         </div>
     }
 }
+<script>
+    $(".item").children(".basket").children(".button").click(function (){
+        $(this).parent().children(".count").show();
+        $(this).hide();
+        $.ajax({
+            url: '@Url.Action("Basket", "Items")',
+            contentType: "application/json; charset=utf-8",
+            data: { idItem: $(this).data('id') },
+            dataType: "json",
+            success: SuccessBasket,
+            error: AjaxError
+        });
+    });
+    function SuccessBasket(data){
+        console.log(data);
+    }
+    function AjaxError(){
+        console.log("Ошибка выполнения ajax");
+    }
+</script>

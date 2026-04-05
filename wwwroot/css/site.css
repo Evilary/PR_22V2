@@ -91,10 +91,10 @@ form select {
     cursor:pointer;
     float:left;
 }
-    .count .text {
-        width: 70px;
-        height: 20px;
-        text-align: center;
-        float: left;
-    }
+.count .text {
+    width: 70px;
+    height: 20px;
+    text-align: center;
+    float: left;
+}
 

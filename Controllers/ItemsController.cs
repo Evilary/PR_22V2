@@ -110,5 +110,12 @@ namespace Shop_Chernyshkov_Final.Controllers
             IAllItems.Delete(id);
             return Redirect("/Items/List?id=" + categoryId);
         }
+
+        public ActionResult Basket(int idItem)
+        {
+            return Json(true);
+        }
     }
+
+
 }
